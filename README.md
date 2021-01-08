@@ -17,7 +17,7 @@ P. Reviriego, A. Sánchez-Macián, O. Rottenstreich and D. Larrabeiti, "Adaptive
 - GenericAdaptiveBloomFilterCheckGroup.py (Alternative GenericAdaptiveBloomFilter. When swapping, it checks if the new set of functions also produces a FP. If so, iterates to the next set and keeps doing it until no FP is produced or the original set is reached.)
 - GenericSlowMemoryRepresentation.py (Simulates the slow memory storing the different copies of the Bloom-1 filter)
 - GenericHashFunctionsMD5.py (Generates the hash function to select the word and the groups of hash functions to select the bits using MD5)
-- GenericHashFunctionsMD5.py (Generates the hash function to select the word and the groups of hash functions to select the bits using SHA512)
+- GenericHashFunctionsSHA512.py (Generates the hash function to select the word and the groups of hash functions to select the bits using SHA512)
 - LogScreen, LogFile and LogNull (To log the different messages generated during the execution).
 - DataSet (to store the actual values that were stored for later false positive detection).
 
