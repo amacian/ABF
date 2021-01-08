@@ -14,6 +14,7 @@ P. Reviriego, A. Sánchez-Macián, O. Rottenstreich and D. Larrabeiti, "Adaptive
 - validationSynthetic.py (to generate synthetic traffic and validate the filter behavior)
 - processTraces.py (to process and run the CAIDA traces)
 - GenericAdaptiveBloomFilter.py (Adaptive Bloom Filter implementation)
+- GenericAdaptiveBloomFilterCheckGroup.py (Alternative GenericAdaptiveBloomFilter. When swapping, it checks if the new set of functions also produces a FP. If so, iterates to the next set and keeps doing it until no FP is produced or the original set is reached.)
 - GenericSlowMemoryRepresentation.py (Simulates the slow memory storing the different copies of the Bloom-1 filter)
 - GenericHashFunctionsMD5.py (Generates the hash function to select the word and the groups of hash functions to select the bits using MD5)
 - GenericHashFunctionsMD5.py (Generates the hash function to select the word and the groups of hash functions to select the bits using SHA512)
@@ -67,3 +68,5 @@ For instance:
 `processTraces.py -b 1024 -w 64 -k 3 -f 8 -g 8 -d ./traces/sanjose.dirA/ -t nospaces.txt -a sha512 -s 2`
 
 `processTraces.py -b 1024 -w 64 -k 6 -f 12 -g 2 -d ./traces/sanjose.dirA/ -t nospaces.txt`
+
+To use the alternative GenericAdaptiveBloomFilter, an import in processTraces.py needs to be changed: *"from GenericAdaptiveBloomFilter import GenericAdaptiveBloomFilter"* to *"from GenericAdaptiveBloomFilterCheckGroup import GenericAdaptiveBloomFilter"*.
