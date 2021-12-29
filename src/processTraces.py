@@ -6,6 +6,7 @@ from LogNull import LogNull
 from LogFile import LogFile
 from LogScreen import LogScreen
 from GenericHashFunctionsSHA512 import GenericHashFunctionsSHA512
+from GenericHashFunctionsSHA512All import GenericHashFunctionsSHA512All
 
 # Main method
 def main(argv):
@@ -36,7 +37,7 @@ def main(argv):
     except getopt.GetoptError:
         print ('argv[0] -b <words> -w <width> -k <bits> -g <function_groups> -f <factor> -t <filetraces> -d <folder> -a <hash> -s <false_to_swap>')
         sys.exit(2)
-        
+
     for opt, arg in opts:
         # Help option. Print help and leave.
         if opt == '-h':
@@ -72,7 +73,7 @@ def main(argv):
         # between groups of functions.
         elif opt == "-s":
             swap = int(arg)
-                
+
     # Pass the parameters to the run function
     run(traces, folder, blocks, width, k, groups, factor, hash_f, swap)
     return
@@ -101,7 +102,7 @@ def run (traces, folder, blocks=1024, width=64, k=3, groups=2, factor=8, hash_f=
     log2.write(info+"\n")
 
     # Message printing the parameters used for the experiment
-    info ="Initializing parameters blocks=%d, width=%d, k=%d, groups=%d, factor=%d, hash_f=%s, swap=%s" % (blocks, width, k, groups, factor, hash_f, swap) 
+    info ="Initializing parameters blocks=%d, width=%d, k=%d, groups=%d, factor=%d, hash_f=%s, swap=%s" % (blocks, width, k, groups, factor, hash_f, swap)
     sc.write(info)
     log.write(info+"\n")
     log2.write(info+"\n")
@@ -121,6 +122,9 @@ def run (traces, folder, blocks=1024, width=64, k=3, groups=2, factor=8, hash_f=
         # Build the filter passing a SHA512 hash function
         if hash_f == 'sha512':
             sha = GenericHashFunctionsSHA512(words=blocks, bits=width, nhash=k, hash_groups=groups)
+            abf = GenericAdaptiveBloomFilter(words=blocks, bits=width, nhash=k, hash_groups=groups, hash_f=sha)
+        elif hash_f == 'sha512b':
+            sha = GenericHashFunctionsSHA512All(words=blocks, bits=width, nhash=k, hash_groups=groups)
             abf = GenericAdaptiveBloomFilter(words=blocks, bits=width, nhash=k, hash_groups=groups, hash_f=sha)
         # Otherwise build it using the default MD5 hash
         else:
@@ -200,13 +204,13 @@ def run (traces, folder, blocks=1024, width=64, k=3, groups=2, factor=8, hash_f=
         fpr +=  fp/(fp+tn)
 
         # Print the result of the iteration
-        info = "Iteration %s. FP=%d, TP=%d, TN=%d, FPR=%s." % (i, fp, tp, tn, fp/(fp+tn)) 
+        info = "Iteration %s. FP=%d, TP=%d, TN=%d, FPR=%s." % (i, fp, tp, tn, fp/(fp+tn))
         sc.write(info)
         log.write(info+"\n")
         log2.write(info+"\n")
 
     # Print the final result
-    info = "FPR for  %sx%s. FPR %s." % (factor, blocks, round(fpr/totalIterations,6)) 
+    info = "FPR for  %sx%s. FPR %s." % (factor, blocks, round(fpr/totalIterations,6))
     sc.write(info)
     log.write(info+"\n")
     log2.write(info+"\n")

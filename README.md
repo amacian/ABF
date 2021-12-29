@@ -18,6 +18,7 @@ P. Reviriego, A. Sánchez-Macián, O. Rottenstreich and D. Larrabeiti, "Adaptive
 - GenericSlowMemoryRepresentation.py (Simulates the slow memory storing the different copies of the Bloom-1 filter)
 - GenericHashFunctionsMD5.py (Generates the hash function to select the word and the groups of hash functions to select the bits using MD5)
 - GenericHashFunctionsSHA512.py (Generates the hash function to select the word and the groups of hash functions to select the bits using SHA512)
+- GenericHashFunctionsSHA512All.py (Generates the hash function to select the word and the groups of hash functions to select the bits using SHA512. Extended to support widths that are not power of 2).
 - LogScreen, LogFile and LogNull (To log the different messages generated during the execution).
 - DataSet (to store the actual values that were stored for later false positive detection).
 
@@ -35,14 +36,14 @@ Where:
 * "-k" indicates the number of bit hash functions per group, i.e. bits to be set (3 by default)
 * "-f" is the factor (8 by default) used to indicate how many elements will be stored in the filter, i.e. factor x words
 * "-g" is the number of groups of functions used (2 by default).
-* "-a" is the type of hash function used (md5 by default). At the moment it only accepts "sha512" or md5.
+* "-a" is the type of hash function used (md5 by default). At the moment it only accepts "sha512", "sha512b" or md5.
 * "-s" is how many FPs have to be found to trigger the swap between functions from different groups.
 
 For instance:
 
 `validationSynthetic.py -b 1024 -w 64 -k 3 -f 8 -g 2`
 
-`validationSynthetic.py -b 1024 -w 64 -k 3 -f 8 -g 8 -a sha512 -s 2`
+`validationSynthetic.py -b 1024 -w 64 -k 3 -f 8 -g 8 -a sha512b -s 2`
 
 # Execution of CAIDA data traces (or other traces)
 1. Preprocess the traces.

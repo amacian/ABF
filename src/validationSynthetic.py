@@ -8,6 +8,7 @@ from LogNull import LogNull
 from LogFile import LogFile
 from LogScreen import LogScreen
 from GenericHashFunctionsSHA512 import GenericHashFunctionsSHA512
+from GenericHashFunctionsSHA512All import GenericHashFunctionsSHA512All
 
 # Function to generate the random set of elements.
 # Current version uses strings, but integers were also used
@@ -126,7 +127,8 @@ def run (blocks=1024, width=64, k=3, groups=2, factor=8, hash_f='md5', swap=1):
 
     # A*t tests (negative element checks in the filter) are executed per iteration
     # A = mul * maxin (stored elements)
-    t=100
+    #t=100
+    t=10
 
     # Directory to get the positives and negatives
     directory = './data_test/'
@@ -183,6 +185,9 @@ def run (blocks=1024, width=64, k=3, groups=2, factor=8, hash_f='md5', swap=1):
             # Create the Bloom Filter
             if hash_f == 'sha512':
                 sha = GenericHashFunctionsSHA512(words=blocks, bits=width, nhash=k, hash_groups=groups)
+                abf = GenericAdaptiveBloomFilter(words=blocks, bits=width, nhash=k, hash_groups=groups, hash_f=sha)
+            elif hash_f == 'sha512b':
+                sha = GenericHashFunctionsSHA512All(words=blocks, bits=width, nhash=k, hash_groups=groups)
                 abf = GenericAdaptiveBloomFilter(words=blocks, bits=width, nhash=k, hash_groups=groups, hash_f=sha)
             # Otherwise build it using the default MD5 hash
             else:
