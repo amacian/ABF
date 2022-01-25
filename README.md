@@ -2,7 +2,7 @@
 
 This repository includes the implementation in Python of an Adaptive Bloom Filter for the paper:
 
-P. Reviriego, A. Sánchez-Macián, O. Rottenstreich and D. Larrabeiti, "Adaptive Bloom Filters", IEEE Transactions on Network and Service Management (in press)
+P. Reviriego, A. Sánchez-Macián, O. Rottenstreich and D. Larrabeiti, "Adaptive One Memory Access Bloom Filters", IEEE Transactions on Network and Service Management (in press)
 
 # Dependencies
 - Python > 3.6
